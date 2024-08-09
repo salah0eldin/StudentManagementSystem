@@ -5,20 +5,22 @@
  *      Author: Salah Eldin
  */
 
-
 #ifndef HEADERS_STDLIST_H_
 #define HEADERS_STDLIST_H_
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifndef nullptr
 #define nullptr (void*)0
 #endif
 
+#define NAME_BUFFER_SIZE	50
+
 // Enum for list operation errors
 typedef enum {
-	SUCCESS, ID_TOKEN, ID_NOT_FOUND, CANCEL,EMPTY
+	SUCCESS, ID_TOKEN, ID_NOT_FOUND, CANCEL, EMPTY
 } LIST_ERRORS;
 
 // Structure representing a student
@@ -26,7 +28,7 @@ typedef struct {
 	int id;        ///< Student ID
 	int age;       ///< Student age
 	float gpa;     ///< Student GPA
-	char name[50]; ///< Student name
+	char name[NAME_BUFFER_SIZE]; ///< Student name
 } student;
 
 // Node structure for the linked list

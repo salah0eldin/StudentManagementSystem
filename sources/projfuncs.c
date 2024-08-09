@@ -44,13 +44,20 @@ void addStudent(node **stdListptr) {
 	puts("|___________________________________________________|");
 	puts("|                                                   |");
 	printf("| Student ID: ");
-	scanf("%d", &std.id);
+	while (scanf("%d", &std.id) != 1) {
+		printf("| Invalid input. Please enter a number: ");
+		while (getchar() != '\n')
+			; // Clear the input buffer
+	}
 	getchar();  // Clear newline character from input buffer
 	printf("| Student Name: ");
 	gets(std.name);  // Read student name
 	printf("| Student Age: ");
-	scanf("%d", &std.age);
-	// Check if age is within the valid range (optional validation)
+	while (scanf("%d", &std.age) != 1) {
+		printf("| Invalid input. Please enter a number: ");
+		while (getchar() != '\n')
+			; // Clear the input buffer
+	}	// Check if age is within the valid range (optional validation)
 	// if (std.age > 30 || std.age < 10) {
 	//     puts("|                                                   |");
 	//     puts("|        Age can't be out of range (10 -> 30)       |");
@@ -58,8 +65,11 @@ void addStudent(node **stdListptr) {
 	//     return;
 	// }
 	printf("| Student GPA: ");
-	scanf("%f", &std.gpa);
-	// Check if GPA is within the valid range
+	while (scanf("%f", &std.gpa) != 1) {
+		printf("| Invalid input. Please enter a number: ");
+		while (getchar() != '\n')
+			; // Clear the input buffer
+	}	// Check if GPA is within the valid range
 	if (std.gpa > 4 || std.gpa < 0) {
 		puts("|                                                   |");
 		puts("|        GPA can't be out of range (0 -> 4)         |");
@@ -102,7 +112,11 @@ void searchById(node **stdListptr) {
 	puts("|___________________________________________________|");
 	puts("|                                                   |");
 	printf("| Enter Student ID: ");
-	scanf("%d", &id);
+	while (scanf("%d", &id) != 1) {
+		printf("| Invalid input. Please enter a number: ");
+		while (getchar() != '\n')
+			; // Clear the input buffer
+	}
 	node *std = findStudent(stdListptr, id);
 	if (std == nullptr) {
 		puts("|                                                   |");
@@ -129,7 +143,11 @@ void updateById(node **stdListptr) {
 	puts("|___________________________________________________|");
 	puts("|                                                   |");
 	printf("| Enter Student ID: ");
-	scanf("%d", &id);
+	while (scanf("%d", &id) != 1) {
+		printf("| Invalid input. Please enter a number: ");
+		while (getchar() != '\n')
+			; // Clear the input buffer
+	}
 	node *stdptr = findStudent(stdListptr, id);
 	if (stdptr == nullptr) {
 		puts("|                                                   |");
@@ -148,10 +166,17 @@ void updateById(node **stdListptr) {
 		printf("| NEW Name: ");
 		gets(std.name);  // Read new student name
 		printf("| NEW Age: ");
-		scanf("%d", &std.age);
+		while (scanf("%d", &std.age) != 1) {
+			printf("| Invalid input. Please enter a number: ");
+			while (getchar() != '\n')
+				; // Clear the input buffer
+		}
 		printf("| NEW GPA: ");
-		scanf("%f", &std.gpa);
-
+		while (scanf("%f", &std.gpa) != 1) {
+			printf("| Invalid input. Please enter a number: ");
+			while (getchar() != '\n')
+				; // Clear the input buffer
+		}
 		// Check if new GPA is within the valid range
 		if (std.gpa > 4 || std.gpa < 0) {
 			puts("|                                                   |");
@@ -170,10 +195,11 @@ void updateById(node **stdListptr) {
 		puts("|                                                   |");
 		printf("| Confirm update? (y/n): ");
 		scanf(" %c", &c);
-
+		while (getchar() != '\n')
+			; // Clear the input buffer
 		// If user confirms, update the student information in the list
 		if (c == 'y') {
-			updateStdFromList(stdptr, &std);
+			updateStdFromList(&stdptr->data, &std);
 			puts("|                                                   |");
 			puts("|                Updated successfully               |");
 		} else {
@@ -193,8 +219,11 @@ void deleteById(node **stdListptr) {
 	puts("|___________________________________________________|");
 	puts("|                                                   |");
 	printf("| Enter Student ID: ");
-	scanf("%d", &id);
-	// Perform deletion and handle possible outcomes
+	while (scanf("%d", &id) != 1) {
+		printf("| Invalid input. Please enter a number: ");
+		while (getchar() != '\n')
+			; // Clear the input buffer
+	}	// Perform deletion and handle possible outcomes
 	switch (deleteStdFromList(stdListptr, id)) {
 	case ID_NOT_FOUND:
 		puts("|                                                   |");

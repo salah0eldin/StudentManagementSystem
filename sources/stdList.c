@@ -31,8 +31,8 @@ int addStdToList(node **stdListptr, student *std) {
 	// Allocate memory for the new student node
 	node *newStd = (node*) malloc(sizeof(node));
 	if (newStd == NULL) {
-	    perror("Failed to allocate memory");
-	    exit(EXIT_FAILURE);
+		perror("Failed to allocate memory");
+		exit(EXIT_FAILURE);
 	}
 
 	newStd->data = *std;
@@ -83,7 +83,7 @@ node* findStudent(node **stdListptr, int id) {
 
 // Update a student's information in the linked list
 void updateStdFromList(student *stdOld, student *std) {
-	strcpy(stdOld->name,std->name);
+	strcpy(stdOld->name, std->name);
 	stdOld->age = std->age;
 	stdOld->gpa = std->gpa;
 }
@@ -120,7 +120,8 @@ int deleteStdFromList(node **stdListptr, int id) {
 	getchar();
 	printf("| yes or no (y/n): ");
 	scanf("%c", &c);
-
+	while (getchar() != '\n')
+		; // Clear the input buffer
 	// If user confirms, delete the student node from the list
 	if (c == 'y') {
 		if (temp == *stdListptr) {
