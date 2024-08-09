@@ -5,11 +5,9 @@
  *      Author: Salah Eldin
  */
 
+
 #ifndef HEADERS_PROJFUNCS_H_
 #define HEADERS_PROJFUNCS_H_
-
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "stdList.h"
 

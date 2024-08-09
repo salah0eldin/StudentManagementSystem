@@ -26,7 +26,11 @@ void showMainWindow(mainInput *userChoice) {
 	puts("|___________________________________________________|");
 	puts("|                                                   |");
 	printf("| Enter your choice: ");
-	scanf("%d", (int*) userChoice);
+	while (scanf("%d", (int*) userChoice) != 1) {
+		printf("| Invalid input. Please enter a number: ");
+		while (getchar() != '\n')
+			; // Clear the input buffer
+	}
 	puts("|___________________________________________________|");
 	puts("");
 }
@@ -65,7 +69,7 @@ void addStudent(node **stdListptr) {
 	// Add student to list and handle duplicate ID
 	if (ID_TOKEN == addStdToList(stdListptr, &std)) {
 		puts("|                                                   |");
-		puts("|           ID is taken, choose another one          |");
+		puts("|           ID is taken, choose another one         |");
 	} else {
 		puts("|                                                   |");
 		puts("|                Added successfully                 |");
@@ -117,6 +121,8 @@ void searchById(node **stdListptr) {
 void updateById(node **stdListptr) {
 	int id;
 	student std;
+	char c;
+
 	puts(" ___________________________________________________ ");
 	puts("|                                                   |");
 	puts("|                  UPDATE By ID                     |");
@@ -137,37 +143,44 @@ void updateById(node **stdListptr) {
 		printf("| %-4d | %-20s | %-6d | %-10.2f |\n", stdptr->data.id,
 				stdptr->data.name, stdptr->data.age, stdptr->data.gpa);
 		puts("|                                                   |");
-		printf("| NEW ID: ");
-		scanf("%d", &std.id);
+		std.id = id;
 		getchar();  // Clear newline character from input buffer
 		printf("| NEW Name: ");
 		gets(std.name);  // Read new student name
 		printf("| NEW Age: ");
 		scanf("%d", &std.age);
-		// Check if new GPA is within the valid range
-		// if (std.age > 30 || std.age < 10) {
-		//     puts("|                                                   |");
-		//     puts("|        Age can't be out of range (10 -> 30)       |");
-		//     puts("|___________________________________________________|");
-		//     return;
-		// }
 		printf("| NEW GPA: ");
 		scanf("%f", &std.gpa);
+
+		// Check if new GPA is within the valid range
 		if (std.gpa > 4 || std.gpa < 0) {
 			puts("|                                                   |");
 			puts("|        GPA can't be out of range (0 -> 4)         |");
 			puts("|___________________________________________________|");
 			return;
 		}
+
+		// Display the new data and ask for confirmation
+		puts("|                                                   |");
+		puts("|      New data to be updated:                      |");
+		printf("| %-4s | %-20s | %-6s | %-10s |\n", "ID", "Name", "Age", "GPA");
+		printf("|------|----------------------|--------|------------|\n");
+		printf("| %-4d | %-20s | %-6d | %-10.2f |\n", std.id, std.name, std.age,
+				std.gpa);
+		puts("|                                                   |");
+		printf("| Confirm update? (y/n): ");
+		scanf(" %c", &c);
+
+		// If user confirms, update the student information in the list
+		if (c == 'y') {
+			updateStdFromList(stdptr, &std);
+			puts("|                                                   |");
+			puts("|                Updated successfully               |");
+		} else {
+			puts("|                                                   |");
+			puts("|                  Update Canceled                  |");
+		}
 	}
-
-	puts("|                                                   |");
-	// Update student information in the list
-	if (ID_TOKEN == updateStdFromList(stdListptr, stdptr->data.id, &std))
-		puts("|                ID Token, CANCELD                  |");
-	else
-		puts("|                Updated successfully               |");
-
 	puts("|___________________________________________________|");
 }
 
@@ -182,7 +195,7 @@ void deleteById(node **stdListptr) {
 	printf("| Enter Student ID: ");
 	scanf("%d", &id);
 	// Perform deletion and handle possible outcomes
-	switch (deleteStdFromLlist(stdListptr, id)) {
+	switch (deleteStdFromList(stdListptr, id)) {
 	case ID_NOT_FOUND:
 		puts("|                                                   |");
 		puts("|                No student matches this ID         |");

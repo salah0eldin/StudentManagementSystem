@@ -5,6 +5,7 @@
  *      Author: Salah Eldin
  */
 
+
 #ifndef HEADERS_STDLIST_H_
 #define HEADERS_STDLIST_H_
 
@@ -62,11 +63,10 @@ node* findStudent(node **stdListptr, int id);
 /**
  * @brief Update a student's information in the list.
  *
- * @param stdListptr Pointer to the head of the student list.
- * @param id The ID of the student to update.
+ * @param stdOld Pointer to the node of the student information.
  * @param std Pointer to the node containing updated student information.
  */
-int updateStdFromList(node **stdListptr, int id, student *std);
+void updateStdFromList(student *stdOld, student *std);
 
 /**
  * @brief Delete a student from the list by ID.

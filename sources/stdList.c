@@ -30,6 +30,11 @@ int addStdToList(node **stdListptr, student *std) {
 
 	// Allocate memory for the new student node
 	node *newStd = (node*) malloc(sizeof(node));
+	if (newStd == NULL) {
+	    perror("Failed to allocate memory");
+	    exit(EXIT_FAILURE);
+	}
+
 	newStd->data = *std;
 
 	// Insert the new node at the beginning of the list
@@ -77,37 +82,14 @@ node* findStudent(node **stdListptr, int id) {
 }
 
 // Update a student's information in the linked list
-int updateStdFromList(node **stdListptr, int id, student *std) {
-	node *temp, *prevTemp;
-
-	temp = prevTemp = *stdListptr;
-
-	if (id != std->id) {
-		if (findStudent(stdListptr, std->id) != nullptr)
-			return ID_TOKEN;
-	}
-	// Traverse the list to find the student with the given ID
-	while (temp) {
-		if (temp->data.id == id)
-			break;
-		prevTemp = temp;
-		temp = temp->next;
-	}
-
-	// Remove the old student node from the list
-	if (temp == *stdListptr) {
-		*stdListptr = temp->next;
-	} else {
-		prevTemp->next = temp->next;
-	}
-	free(temp);
-
-	// Add the updated student information to the list
-	return addStdToList(stdListptr, std);
+void updateStdFromList(student *stdOld, student *std) {
+	strcpy(stdOld->name,std->name);
+	stdOld->age = std->age;
+	stdOld->gpa = std->gpa;
 }
 
 // Delete a student from the linked list by ID
-int deleteStdFromLlist(node **stdListptr, int id) {
+int deleteStdFromList(node **stdListptr, int id) {
 	node *temp, *prevTemp;
 
 	temp = prevTemp = *stdListptr;
